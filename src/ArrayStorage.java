@@ -12,8 +12,8 @@ public class ArrayStorage {
     private int size = 0;
 
     void clear() {
-        for (Resume resume : storage) {
-            resume = null;
+        for (int i = 0; i < size; i++) {
+            storage[i] = null;
         }
         size = 0;
     }
@@ -24,14 +24,13 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        Resume getResume = null;
-        for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(uuid)) {
-                getResume = storage[i];
-                break;
+        int index = 0;
+            for (int i = 0; i < size; i++) {
+                if (storage[i].uuid.equals(uuid)) {
+                    index = i;
+                }
             }
-        }
-        return getResume;
+        return storage[index];
     }
 
     void delete(String uuid) {
