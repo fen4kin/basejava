@@ -1,41 +1,38 @@
-import java.util.*;
+package com.fen4kin.webapp.storage;
+
+import com.fen4kin.webapp.model.Resume;
 
 /**
  * Array based storage for Resumes
- * <p>
- * Второй вариант решения, без карты (если вдруг при проверке кто наткнется на первое)
- * <p>
- * Все действия реализуются непосредственно с массивом storage.
  */
 public class ArrayStorage {
-    Resume[] storage = new Resume[10000];
+    private Resume[] storage = new Resume[10000];
     private int size = 0;
 
-    void clear() {
+    public void clear() {
         for (int i = 0; i < size; i++) {
             storage[i] = null;
         }
         size = 0;
     }
 
-    void save(Resume r) {
+    public void save(Resume r) {
         storage[size] = r;
         size++;
     }
 
-    Resume get(String uuid) {
-        int index = 0;
-            for (int i = 0; i < size; i++) {
-                if (storage[i].uuid.equals(uuid)) {
-                    index = i;
-                }
+    public Resume get(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                return storage[i];
             }
-        return storage[index];
+        }
+        return null;
     }
 
-    void delete(String uuid) {
+    public void delete(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(uuid)) {
+            if (storage[i].getUuid().equals(uuid)) {
                 storage[i] = storage[size - 1];
                 storage[size - 1] = null;
                 size--;
@@ -47,7 +44,7 @@ public class ArrayStorage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Resume[] getAll() {
+    public Resume[] getAll() {
         Resume[] array = new Resume[size];
         for (int i = 0; i < size; i++) {
             array[i] = storage[i];
@@ -55,7 +52,7 @@ public class ArrayStorage {
         return array;
     }
 
-    int size() {
+    public int size() {
         return size;
     }
 }
