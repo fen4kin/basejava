@@ -1,3 +1,5 @@
+package com.fen4kin.webapp;
+
 import com.fen4kin.webapp.model.Resume;
 import com.fen4kin.webapp.storage.ArrayStorage;
 import com.fen4kin.webapp.storage.Storage;
