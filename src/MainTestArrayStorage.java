@@ -1,11 +1,12 @@
 import com.fen4kin.webapp.model.Resume;
 import com.fen4kin.webapp.storage.ArrayStorage;
+import com.fen4kin.webapp.storage.Storage;
 
 /**
  * Test for your com.fen4kin.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    private static final Storage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
         final Resume r1 = new Resume();
