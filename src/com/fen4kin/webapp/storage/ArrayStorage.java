@@ -27,7 +27,7 @@ public class ArrayStorage extends AbstractArrayStorage {
     public void save(Resume r) {
         if (getIndex(r.getUuid()) != -1) {
             System.out.println("Resume " + r.getUuid() + " already exists");
-        } else if (size == STORAGE_LIMIT) {                                //проверка на переполнение как в примере
+        } else if (size >= STORAGE_LIMIT) {                                //проверка на переполнение как в примере
             System.out.println("Storage overflow");
         } else {
             storage[size] = r;
@@ -53,13 +53,9 @@ public class ArrayStorage extends AbstractArrayStorage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    public int size() {
-        return size;
-    }
-
     protected int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (uuid == storage[i].getUuid()) {
+            if (uuid.equals(storage[i].getUuid())) {
                 return i;
             }
         }
