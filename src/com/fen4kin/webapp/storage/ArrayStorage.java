@@ -12,64 +12,50 @@ public class ArrayStorage {
     private int size = 0;
 
     public void clear() {
-        Arrays.fill(storage,0, size, null);
+        Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
     public void update(Resume r) {
-        if (isPresent(getAll(), r)) {
-            for (int i = 0; i < size; i++) {
-                if (storage[i].equals(r)) {
-                    storage[i].setUuid(r.getUuid());    //единственное поле, которое мы можем обновить, это uuid
-                }
-            }
-        } else System.out.println("Resume has not found");
+        int index = getIndex(r.getUuid());
+        if (index == -1) {                                                  //если резюме не существует
+            System.out.println("Resume " + r.getUuid() + " has not found");
+        } else {
+            storage[index] = r;
+        }
+
     }
 
     public void save(Resume r) {
-        if (!isPresent(getAll(), r)) {
+        if (getIndex(r.getUuid()) != -1) {
+            System.out.println("Resume " + r.getUuid() + " already exists");
+        } else if (size == storage.length) {                                //проверка на переполнение как в примере
+            System.out.println("Storage overflow");
+        } else {
             storage[size] = r;
             size++;
-        } else System.out.println("Resume already exists");
-
+        }
     }
 
     public Resume get(String uuid) {
-        Resume r = null;
-        //поиск резюме по uuid. Если его нет, то временная переменная остается пустой
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                r = storage[i];
-            }
+        int index = getIndex(uuid);
+        if (index == -1) {
+            System.out.println("Resume " + uuid + " has not found");
+            return null;
         }
-        //присутсвует ли резюме в заполненной области
-        if (isPresent(getAll(), r)) return r;
-        else System.out.println("Resume has not found");
-
-        return null;    //без Exception не знаю как обернуть возврат без null
+        return storage[index];
     }
 
     public void delete(String uuid) {
-        Resume r = null;
-
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                r = storage[i];
-            }
+        int index = getIndex(uuid);
+        if (index == -1) {
+            System.out.println("Resume " + uuid + " has not found");
+        } else {
+            storage[index] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
         }
-
-        if (isPresent(getAll(), r)) {
-            for (int i = 0; i < size; i++) {
-                if (storage[i].equals(r)) {
-                    storage[i] = storage[size - 1];
-                    storage[size - 1] = null;
-                    size--;
-                    break;
-                }
-            }
-        } else System.out.println("Resume has not found");
     }
-
 
     /**
      * @return array, contains only Resumes in storage (without null)
@@ -82,11 +68,12 @@ public class ArrayStorage {
         return size;
     }
 
-    private boolean isPresent(Resume[] temp, Resume r) {
-        for (Resume t : temp) {
-            if (t.equals(r))     //equals и hashCode переопределила автоматически
-                return true;
+    private int getIndex(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (uuid == storage[i].getUuid()) {
+                return i;
+            }
         }
-        return false;
+        return -1;
     }
 }
