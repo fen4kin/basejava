@@ -15,11 +15,17 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void fillDeletedElement(int index) {
-
+        int dif = size - index - 1;
+        if (dif > 0) {
+            System.arraycopy(storage, index + 1, storage, index, dif);
+        }
     }
 
     @Override
     protected void insertElement(Resume r, int index) {
+        int newIndex = -index - 1;
+        System.arraycopy(storage, newIndex, storage, newIndex + 1, size - newIndex);
+        storage[newIndex] = r;
 
     }
 }
