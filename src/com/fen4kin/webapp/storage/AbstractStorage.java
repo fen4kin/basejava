@@ -6,7 +6,7 @@ import com.fen4kin.webapp.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
 
-    protected abstract Object getSearchKey(String uuid);
+    protected abstract Object getSearchKey(String uuid, String fullName);
 
     protected abstract void doUpdate(Resume r, Object searchKey);
 

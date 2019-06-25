@@ -3,6 +3,7 @@ package com.fen4kin.webapp.storage;
 import com.fen4kin.webapp.model.Resume;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MapUuidStorage extends AbstractStorage {
@@ -43,8 +44,8 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return new Resume[0];
+    public List<Resume> getAllSorted() {
+        return null;
     }
 
     @Override
